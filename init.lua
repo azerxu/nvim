@@ -29,8 +29,7 @@ require("plug.trouble")     -- 显示 diagnostics
 require("plug.tabline")     -- 使用tabline
 require("plug.whickey")     -- vim short key helpers
 require("plug.toggleterm")  -- 加强版Term
--- require("plug.formatter")      -- format on save
--- require("plug.indent-blankline") -- 显示indent
+require("plug.lightbulb")
 
 -----------------------------------------------------------
 -- language server setting
@@ -43,7 +42,7 @@ require("lsp.hints")       -- 为每个buffer 设置 LspAttach_inlayhints
 require("lsp.virtualtext") -- 为每个buffer 设置 LspAttach_virtualText
 require("lsp.dochl")       -- 为每个buffer 设置LspAttach_documentHighlight
 require("lsp.cmp")         -- nvim-cmp 自动补全
--- require("lsp.nulls") -- for autoformat
+require("lsp.nulls")       -- for autoformat
 
 -----------------------------------------------------------
 -- Language setting
@@ -55,6 +54,7 @@ require("lang.pyright") -- for python
 require("lang.pylsp")   -- for python
 require("lang.bashls")  -- for bash
 require("lang.jsonls")  -- for json
+
 
 
 -----------------------------------------------------------

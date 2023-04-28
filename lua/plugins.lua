@@ -94,6 +94,11 @@ return require("packer").startup(function(use)
         },
     })
 
+    use {
+        'kosayoda/nvim-lightbulb',
+        requires = 'antoinemadec/FixCursorHold.nvim',
+    }
+
     use({
         -- 替代fzf
         "nvim-telescope/telescope.nvim",
@@ -211,23 +216,11 @@ return require("packer").startup(function(use)
 
     use { 'HiPhish/nvim-ts-rainbow2' }
 
-    -- use { 'shurizzle/inlay-hints.nvim' }
-
-    -- use({
-    -- 'lvimuser/lsp-inlayhints.nvim',
-    -- config = function()
-    --     require("lsp-inlayhints").setup()
-    -- end
-    -- })
-
     use({
-        'simrat39/inlay-hints.nvim',
-        config = function()
-            require("inlay-hints").setup()
-        end
+        'lvimuser/lsp-inlayhints.nvim',
     })
 
-    -- use({ 'jubnzv/virtual-types.nvim' })
+    use({ 'jubnzv/virtual-types.nvim' })
 
     use({
         "ray-x/go.nvim",

@@ -13,8 +13,8 @@ local sources = {
     -------------------------------------------
     -- Python mode
     -------------------------------------------
-    -- nulls.builtins.formatting.autopep8,
-    -- nulls.builtins.formatting.black.with({ extra_args = { "--line-length=120" } }),
+    nulls.builtins.formatting.autopep8,
+    nulls.builtins.formatting.black.with({ extra_args = { "--line-length=120" } }),
     nulls.builtins.formatting.isort,
     -- nulls.builtins.formatting.yapf,
 
@@ -24,10 +24,10 @@ local sources = {
     -- nulls.builtins.diagnostics.pydocstyle,
     -- nulls.builtins.diagnostics.pycodestyle,
 
-    -- nulls.builtins.diagnostics.jsonlint,
+    nulls.builtins.diagnostics.jsonlint,
 
-    -- nulls.builtins.diagnostics.eslint,
-    -- nulls.builtins.completion.spell,
+    nulls.builtins.diagnostics.eslint,
+    nulls.builtins.completion.spell,
 
     -- git mode
     nulls.builtins.code_actions.gitsigns,
