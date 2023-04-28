@@ -19,17 +19,6 @@ autocmd("BufEnter", {
     command = ":set colorcolumn=100",
 })
 
--- set json commenting
-autocmd("Filetype", {
-    pattern = "json",
-    -- command = "syntax match Comment +\/\/.\+$+",
-    command = "syntax match Comment '//.*'",
-})
-
-vim.cmd([[
-    autocmd FileType json syntax match Comment +\/\/.\+$+
-]])
-
 -- Disable line length marker
 augroup("setLineLength", { clear = true })
 autocmd("Filetype", {
@@ -91,14 +80,54 @@ autocmd("BufWritePre", {
     end,
 })
 
---auto formate file on save
---augroup("formatOnSave", { clear = true })
---autocmd("BufWritePre", {
---	pattern = "*",
---	--	pattern = "",
---	group = "formatOnSave",
---	callback = function()
---		vim.lsp.buf.format({ timeout_ms = 1000, async = false })
---	end,
---	-- command = "FormatWrite",
--- })
+--------------------------------------------------------------
+-- json with comment file config
+--------------------------------------------------------------
+
+-- 处理带有注释的json文件为jsonc文件
+augroup("jsoncFtDetect", { clear = true })
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "*config.json",
+    command = "setlocal filetype=jsonc",
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "*.cjson",
+    command = "setlocal filetype=jsonc",
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "*.cjsn",
+    command = "setlocal filetype=jsonc",
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "coc-settings.json", -- for coc settings config file
+    command = "setlocal filetype=jsonc",
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "*/v2ray/confs/*.json",
+    command = "setlocal filetype=jsonc",
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+    group = "jsoncFtDetect",
+    pattern = "coffeelint.json",
+    command = "setlocal filetype=jsonc",
+})
+
+-- set json commenting
+autocmd("Filetype", {
+    pattern = "json",
+    -- command = "syntax match Comment +\/\/.\+$+",
+    command = "syntax match Comment '//.*'",
+})
+
+vim.cmd([[
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+]])
+
+--------------------------------------------------------------
+-- End of File
+--------------------------------------------------------------
