@@ -1,0 +1,5 @@
+plugin/
+lua/.luarc.json
+.luarc.json
+*test.lua
+config.lua.oo
