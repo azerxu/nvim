@@ -1,3 +1,5 @@
+vim.opt.showmode = false
+
 local colors = {
     red         = "#ca1243",
     red2        = '#ec5f67',
@@ -19,6 +21,9 @@ local colors = {
     magenta     = '#c678dd',
 }
 
+local icons = {
+        Lock = "",
+}
 
 local function modified()
     if vim.bo.modified then
@@ -37,7 +42,6 @@ local function pasted()
     return ""
 end
 
-vim.opt.showmode = false
 
 -- ins_left {
 --   'diagnostics',
@@ -50,64 +54,22 @@ vim.opt.showmode = false
 --   },
 -- }
 
-local function lsped()
-    local msg = "No Active Lsp"
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    vim.notify("find filetype ")
+local function lsp_client()
     local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-        vim.notify("find no clients")
-        return msg
-    end
-    local names = ""
+    local names = {}
     for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            vim.notify("find clients: " .. client.name)
-            if names == "" then
-                names = client.name
-            else
-                names = names .. client.name
-            end
-        end
+        table.insert(names, client.name)
     end
-    if names == "" then
-        return msg
-    else
-        return names
+    if names ~= {} then
+        return "" .. table.concat(names, "|") .. ""
     end
+    return "No Active Lsp"
 end
--- ins_left {
---   -- Lsp server name .
---   function()
---     local msg = 'No Active Lsp'
---     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
---     local clients = vim.lsp.get_active_clients()
---     if next(clients) == nil then
---       return msg
---     end
---     for _, client in ipairs(clients) do
---       local filetypes = client.config.filetypes
---       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
---         return client.name
---       end
---     end
---     return msg
---   end,
---   icon = ' LSP:',
---   color = { fg = '#ffffff', gui = 'bold' },
--- }
-
-vim.notify(lsped())
 
 require("lualine").setup({
     options = {
-        -- 设置主题颜色
         theme = "onedark",
-        -- theme = "molokai",
         icons_enabled = true,
-        -- component_separators = "|",
-        -- section_separators = "",
         disabled_filetypes = {
             statusline = { 'NvimTree' },
         }
@@ -119,9 +81,9 @@ require("lualine").setup({
                 file_status = false,
                 path = 1
             },
-            --            { lsped,    color = { bg = colors.bg, fg = colors.fg, gui = "bold" },      icon = " LSP:" },
-            { pasted,   color = { bg = colors.green, fg = colors.white, gui = "bold" } },
-            { modified, color = { bg = colors.cyan, fg = colors.white, gui = "bold" } },
+            { lsp_client, color = { bg = colors.bg, fg = colors.fg, gui = "bold" },      icon = " LSP:" },
+            { pasted,     color = { bg = colors.green, fg = colors.white, gui = "bold" } },
+            { modified,   color = { bg = colors.cyan, fg = colors.white, gui = "bold" } },
             {
                 "diagnostics",
                 source = { "nvim" },
@@ -140,32 +102,6 @@ require("lualine").setup({
                 sections = { "info" },
                 diagnostics_color = { info = { bg = colors.blue, fg = colors.white, gui = "bold" } },
             },
-
-
-            {
-                "%w",
-                cond = function()
-                    return vim.wo.previewwindow
-                end,
-            },
-            {
-                "%q",
-                cond = function()
-                    return vim.bo.buftype == "quickfix"
-                end,
-            },
         },
-        -- lualine_x = {
-        --     {
-        --         'fileformat',
-        --         icons_enabled = true,
-        --         symbols = {
-        --             unix = '',
-        --             dos = 'CRLF',
-        --             mac = 'CR',
-        --         }
-        --     },
-        --     'filetype', 'encoding',
-        -- },
     },
 })
