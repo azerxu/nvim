@@ -1,9 +1,3 @@
--- local config_ok, config = pcall(require, "lsp.config")
--- if not config_ok then
---     vim.notify("pyright.lua load lsp.config failed!")
---     return
--- end
-
 local lsp_ok, lspconfig = pcall(require, "lspconfig")
 if not lsp_ok then
     vim.notify("pyright.lua load lspconfig failed!")
@@ -25,9 +19,9 @@ lspconfig.pyright.setup({
     settings = {
         python = {
             analysis = {
-                -- autoSearchPaths = true,
+                autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                -- useLibraryCodeForTypes = true,
+                useLibraryCodeForTypes = true,
             },
         },
     },
