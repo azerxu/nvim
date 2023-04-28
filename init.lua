@@ -53,7 +53,8 @@ require("lang.gopls")   -- for go lang
 require("lang.luals")   -- for lua
 require("lang.pyright") -- for python
 require("lang.pylsp")   -- for python
-require("lang.bashls")  -- for bashls
+require("lang.bashls")  -- for bash
+require("lang.jsonls")  -- for json
 
 
 -----------------------------------------------------------
