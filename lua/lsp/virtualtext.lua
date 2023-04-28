@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client.server_capabilities.codeLensProvider then
-            vim.notify(client.name .. " start LspAttach_virtualText ...")
+            -- vim.notify(client.name .. " start LspAttach_virtualText ...")
             require("virtualtypes").on_attach(client, bufnr)
             local codelens = vim.api.nvim_create_augroup('LSPCodeLens', { clear = true })
             vim.api.nvim_create_autocmd({ 'BufEnter' }, {
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end,
                 buffer = bufnr,
             })
-            vim.notify(client.name .. " start LspAttach_virtualText done")
+            -- vim.notify(client.name .. " start LspAttach_virtualText done")
         else
             vim.notify(client.name .. " don't support textDocument/codelens")
         end

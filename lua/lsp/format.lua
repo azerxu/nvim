@@ -13,9 +13,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-        -- if client.supports_method("textDocument/formatting") then
         if client.server_capabilities.documentFormattingProvider then
-            vim.notify(client.name .. " start LspAttach_fmtOnSave ...")
+            -- vim.notify(client.name .. " start LspAttach_fmtOnSave ...")
             local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
@@ -26,7 +25,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     vim.lsp.buf.format({ bufnr = bufnr })
                 end,
             })
-            vim.notify(client.name .. " start LspAttach_fmtOnSave done")
+            -- vim.notify(client.name .. " start LspAttach_fmtOnSave done")
         else
             vim.notify(client.name .. " don't support textDocument/formatting")
         end

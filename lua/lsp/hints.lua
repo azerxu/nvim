@@ -16,9 +16,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
 
         if client.server_capabilities.inlayHintProvider then
-            vim.notify(client.name .. " start LspAttach_inlayhints hints ...")
+            -- vim.notify(client.name .. " start LspAttach_inlayhints hints ...")
             hints.on_attach(client, args.buf, false)
-            vim.notify(client.name .. " start LspAttach_inlayhints hints done")
+            -- vim.notify(client.name .. " start LspAttach_inlayhints hints done")
         else
             vim.notify(client.name .. " don't support inlay Hints")
         end

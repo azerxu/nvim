@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client.server_capabilities.documentHighlightProvider then
-            vim.notify(client.name .. " start LspAttach_DocHL ...")
+            -- vim.notify(client.name .. " start LspAttach_DocHL ...")
             local augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("CursorHold", {
@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 group = augroup,
                 desc = "Clear All the References",
             })
-            vim.notify(client.name .. " start LspAttach_DocHL done")
+            -- vim.notify(client.name .. " start LspAttach_DocHL done")
         end
     end,
 })
