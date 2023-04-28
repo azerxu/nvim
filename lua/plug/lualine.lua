@@ -22,14 +22,22 @@ local colors = {
 }
 
 local icons = {
-        Lock = "",
+    Lock = "",
+    Modified = "+",
+    Paste = "Þ",
+    Error = ' ',
+    Warn = ' ',
+    Info = ' ',
+    Hint = " ",
+    Lsp = " LSP:",
+
 }
 
 local function modified()
     if vim.bo.modified then
-        return "+"
+        return icons.Modified
     elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-        return ""
+        return icons.Lock
     end
     return ""
 end
@@ -37,22 +45,11 @@ end
 -- add pastetoggle status
 local function pasted()
     if vim.o.paste then
-        return "Þ"
+        return icons.Paste
     end
     return ""
 end
 
-
--- ins_left {
---   'diagnostics',
---   sources = { 'nvim_diagnostic' },
---   symbols = { error = ' ', warn = ' ', info = ' ' },
---   diagnostics_color = {
---     color_error = { fg = colors.red },
---     color_warn = { fg = colors.yellow },
---     color_info = { fg = colors.cyan },
---   },
--- }
 
 local function lsp_client()
     local clients = vim.lsp.get_active_clients()
@@ -61,7 +58,7 @@ local function lsp_client()
         table.insert(names, client.name)
     end
     if names ~= {} then
-        return "" .. table.concat(names, "|") .. ""
+        return "" .. table.concat(names, "|")
     end
     return "No Active Lsp"
 end
@@ -75,24 +72,52 @@ require("lualine").setup({
         }
     },
     sections = {
+        lualine_a = {
+
+        },
+        lualine_b = {
+
+        },
         lualine_c = {
             {
                 "filename",
                 file_status = false,
                 path = 1
             },
-            { lsp_client, color = { bg = colors.bg, fg = colors.fg, gui = "bold" },      icon = " LSP:" },
-            { pasted,     color = { bg = colors.green, fg = colors.white, gui = "bold" } },
-            { modified,   color = { bg = colors.cyan, fg = colors.white, gui = "bold" } },
+            {
+                lsp_client,
+                color = {
+                    bg = colors.bg,
+                    fg = colors.fg,
+                    gui = "bold"
+                },
+                icon = icons.Lsp,
+            },
+            {
+                pasted,
+                color = {
+                    bg = colors.green,
+                    fg = colors.white,
+                    gui = "bold"
+                }
+            },
+            {
+                modified,
+                color = {
+                    bg = colors.cyan,
+                    fg = colors.white,
+                    gui = "bold"
+                }
+            },
             {
                 "diagnostics",
-                source = { "nvim" },
+                source = { "nvim_diagnostic" },
                 sections = { "error" },
                 diagnostics_color = { error = { bg = colors.red, fg = colors.white, gui = "bold" } },
             },
             {
                 "diagnostics",
-                source = { "nvim" },
+                source = { "nvim_diagnostic" },
                 sections = { "warn" },
                 diagnostics_color = { warn = { fg = colors.yellow, bg = colors.bg, gui = "bold" } },
             },
@@ -102,6 +127,22 @@ require("lualine").setup({
                 sections = { "info" },
                 diagnostics_color = { info = { bg = colors.blue, fg = colors.white, gui = "bold" } },
             },
+            {
+                "diagnostics",
+                source = { "nvim_diagnostic" },
+                sections = { "hint" },
+                diagnostics_color = { hint = { bg = colors.blue, fg = colors.white, gui = "bold" } },
+            },
+
+        },
+        lualine_x = {
+
+        },
+        lualine_y = {
+
+        },
+        lualine_z = {
+
         },
     },
 })
