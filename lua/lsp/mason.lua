@@ -15,6 +15,6 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     -- A list of servers to automatically install if they're not already installed
-    ensure_installed = { 'pylsp', 'gopls', 'lua_ls', 'rust_analyzer', 'pyright' },
+    ensure_installed = { 'pylsp', 'gopls', 'lua_ls' },
     automatic_installation = false,
 })
