@@ -30,8 +30,50 @@ local icons = {
     Info = ' ',
     Hint = " ",
     Lsp = " LSP:",
-
+    Readonly = "",
+    Whitespace = "☲",
+    Linenr = "",
+    Mlinenr = "☰",
+    Colnr = "℅",
+    Branch = "",
+    Nonexists = "Ɇ",
+    Crypt = "🔒",
+    Dirty = "⚡",
 }
+
+local function status_line()
+    local mode = "%-5{%v:lua.string.upper(v:lua.vim.fn.mode())%}"
+    local file_name = "%-.16t"
+    local buf_nr = "[%n]"
+    local modi = " %-m"
+    local file_type = " %y"
+    local right_align = "%="
+    local line_no = "%10([%l/%L%)]"
+    local pct_thru_file = "%5p%%"
+    local all_show = "%9([%l/%L%)]:%p%%"
+    -- local all_show = "%5p%% %y%10(%[l/%L%)]"
+
+    return string.format(
+        "%s%s%s%s%s%s%s%s%s",
+        mode,
+        file_name,
+        buf_nr,
+        modi,
+        file_type,
+        right_align,
+        line_no,
+        pct_thru_file,
+        all_show
+    )
+end
+
+-- vim.opt.statusline = status_line()
+-- vim.opt.winbar = status_line()
+
+local function stat()
+    -- return "%c:%l %5p%%:%8([%l/%L%)]"
+    return "%c:%l %5p%%:%8l/%L"
+end
 
 local function modified()
     if vim.bo.modified then
@@ -63,20 +105,43 @@ local function lsp_client()
     return "No Active Lsp"
 end
 
+
+
+
+
+
+
 require("lualine").setup({
     options = {
         theme = "onedark",
         icons_enabled = true,
+        -- component_separators = { left = '', right = ''},
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
-            statusline = { 'NvimTree' },
+            statusline = {
+                'NvimTree',
+            },
+            winbar = {
+                "trouble",
+            },
+        },
+        ignore_focus = {},
+        always_divide_middle = false,
+        globalstatus = true,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
         }
     },
     sections = {
         lualine_a = {
-
+            {
+                "mode"
+            },
         },
         lualine_b = {
-
         },
         lualine_c = {
             {
@@ -101,6 +166,7 @@ require("lualine").setup({
                     gui = "bold"
                 }
             },
+            { "branch" },
             {
                 modified,
                 color = {
@@ -136,13 +202,47 @@ require("lualine").setup({
 
         },
         lualine_x = {
-
+            { "encoding" },
+            { "fileformat" },
+            { "filetype" },
+            { "progress" },
+            { "location" },
+            {
+                stat,
+                color = {
+                    bg = colors.green,
+                    fg = colors.white,
+                    gui = "bold"
+                }
+            }
         },
         lualine_y = {
 
         },
         lualine_z = {
-
         },
     },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
+        lualine_y = {},
+        lualine_z = {},
+
+    },
+    tabline = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { require('tabline').tabline_buffers },
+        lualine_x = { require('tabline').tabline_tabs },
+        lualine_y = {},
+        lualine_z = {
+        },
+    },
+    winbar = {
+        -- { status_line() },
+    },
+    inactive_winbar = {},
+    extensions = {},
 })

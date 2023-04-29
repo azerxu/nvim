@@ -20,16 +20,16 @@ require("plug.notify")      -- Beautiful Notification
 require("plug.comment")     -- Comment.nvim
 require("plug.telescope")   -- search file
 require("plug.nvimtree")    -- 文件栏，替换nerdTree
-require("plug.lualine")     -- 状态栏
+-- require("plug.lualine")     -- 状态栏
 require("plug.treesitter")  -- 解析器
 require("plug.orgmode")     -- nvim org-mode
 require("plug.debug")       -- delve debug
 require("plug.git")         -- setting git
 require("plug.trouble")     -- 显示 diagnostics
-require("plug.tabline")     -- 使用tabline
 require("plug.whickey")     -- vim short key helpers
 require("plug.toggleterm")  -- 加强版Term
-require("plug.lightbulb")
+-- require("plug.lightbulb") -- bulb
+require("plug.tabline")     -- 使用tabline
 
 -----------------------------------------------------------
 -- language server setting
@@ -40,9 +40,11 @@ require("lsp.config")      -- 为每个buffer 设置 LspAttach_keyMap
 require("lsp.format")      -- 为每个buffer 设置 LspAttach_formatOnSave
 require("lsp.hints")       -- 为每个buffer 设置 LspAttach_inlayhints
 require("lsp.virtualtext") -- 为每个buffer 设置 LspAttach_virtualText
-require("lsp.dochl")       -- 为每个buffer 设置LspAttach_documentHighlight
-require("lsp.cmp")         -- nvim-cmp 自动补全
-require("lsp.nulls")       -- for autoformat
+require("lsp.dochl")       -- 为每个buffer 设置 LspAttach_documentHighlight
+-- require("lsp.navic")       -- 为每个buffer 设置 LspAttach_documentSymbol
+-- require("lsp.navbuddy")
+require("lsp.cmp") -- nvim-cmp 自动补全
+-- require("lsp.nulls") -- for autoformat
 
 -----------------------------------------------------------
 -- Language setting
@@ -52,11 +54,12 @@ require("lang.gopls")   -- for go lang
 require("lang.luals")   -- for lua
 require("lang.pyright") -- for python
 require("lang.pylsp")   -- for python
-require("lang.bashls")  -- for bash
-require("lang.jsonls")  -- for json
-
+-- require("lang.bashls")  -- for bash
+-- require("lang.jsonls")  -- for json
 
 
 -----------------------------------------------------------
 -- end of this inin.lua
 -----------------------------------------------------------
+
+require("plug.tabline") -- 使用tabline

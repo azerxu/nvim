@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if caps.documentRangeFormattingProvider then
-            bufmap("n", ";g", function()
+            bufmap({"n", "v", "x"}, ";g", function()
                 vim.lsp.buf.range_formatting()
             end, 'do range format')
         end

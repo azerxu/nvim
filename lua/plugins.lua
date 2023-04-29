@@ -186,7 +186,10 @@ return require("packer").startup(function(use)
         tag = "0.9.*",
     })
 
-    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    use({
+        "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" },
+    })
 
     use({
         "folke/which-key.nvim",
@@ -194,7 +197,6 @@ return require("packer").startup(function(use)
 
     use({ -- icons for lspconfig
         "onsails/lspkind.nvim",
-        -- event = "VimEnter",
     })
 
     use({
@@ -202,6 +204,22 @@ return require("packer").startup(function(use)
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
     })
+
+    use {
+        "SmiteshP/nvim-navbuddy",
+        requires = {
+            "neovim/nvim-lspconfig",
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim",
+            "numToStr/Comment.nvim",        -- Optional
+            "nvim-telescope/telescope.nvim" -- Optional
+        }
+    }
+
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
+    }
 
     use { 'lukas-reineke/indent-blankline.nvim' }
 
@@ -237,11 +255,6 @@ return require("packer").startup(function(use)
     ---------------------------------------
     -- python plugins
     ---------------------------------------
-
-    -- use({ -- coc.nvim
-    -- 	"neoclide/coc.nvim",
-    -- 	branch = "release",
-    -- })
 
     use({ "mhartington/formatter.nvim" })
 

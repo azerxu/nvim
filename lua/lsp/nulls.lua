@@ -1,13 +1,13 @@
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local nulls_ok, nulls = pcall(require, "null-ls")
-if not nulls_ok then
+local ok, nulls = pcall(require, "null-ls")
+if not ok then
     vim.notify("nulls.lua load null-ls failed!")
     return
 end
 
 local sources = {
-
+    -------------------------------------------
     -- Lua mode
+    -------------------------------------------
     -- nulls.builtins.formatting.stylua,
 
     -------------------------------------------
@@ -24,10 +24,17 @@ local sources = {
     -- nulls.builtins.diagnostics.pydocstyle,
     -- nulls.builtins.diagnostics.pycodestyle,
 
+    -------------------------------------------
+    -- Json mode
+    -------------------------------------------
     nulls.builtins.diagnostics.jsonlint,
 
+    -------------------------------------------
+    -- JavaScript mode
+    -------------------------------------------
     nulls.builtins.diagnostics.eslint,
-    nulls.builtins.completion.spell,
+
+    -- nulls.builtins.completion.spell,
 
     -- git mode
     nulls.builtins.code_actions.gitsigns,
@@ -37,6 +44,7 @@ nulls.setup({
     sources = sources,
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
+            local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
