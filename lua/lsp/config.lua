@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if caps.hoverProvider then
-            bufmap("n", "K", vim.lsp.buf.hover, 'on hover show')
+            bufmap("n", "H", vim.lsp.buf.hover, 'on hover show')
         end
 
         if caps.renameProvider then
@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if caps.documentRangeFormattingProvider then
-            bufmap({"n", "v", "x"}, ";g", function()
+            bufmap({ "n", "v", "x" }, ";g", function()
                 vim.lsp.buf.range_formatting()
             end, 'do range format')
         end

@@ -105,6 +105,37 @@ map("n", "<A-S-l>", "guaWel")                -- lower case
 map("i", "<A-S-l>", "<C-o>guaW<C-o>e<C-o>l") -- lower case
 
 
+-- Resize with arrows
+map("n", "<C-Up>", ":resize -2<CR>")
+map("n", "<C-Down>", ":resize +2<CR>")
+map("n", "<C-Left>", ":vertical resize -2<CR>")
+map("n", "<C-Right>", ":vertical resize +2<CR>")
+
+-- Navigate buffers
+map("n", "<S-l>", ":bnext<CR>")
+map("n", "<S-h>", ":bprevious<CR>")
+
+
+-- Navigate buffers
+map("n", "<S-l>", ":bnext<CR>")
+map("n", "<S-h>", ":bprevious<CR>")
+
+-- Move text up and down
+map("n", "<S-j>", "<Esc>:m .+1<CR>==gi")
+map("n", "<S-k>", "<Esc>:m .-2<CR>==gi")
+
+-- Move text up and down
+map("v", "<S-j>", ":m .+1<CR>==")
+map("v", "<S-k>", ":m .-2<CR>==")
+map("v", "p", '"_dP')
+
+-- Visual Block --
+-- Move text up and down
+-- map("x", "J", ":move '>+1<CR>gv-gv")
+-- map("x", "K", ":move '<-2<CR>gv-gv")
+map("x", "<S-j>", ":move '>+1<CR>gv-gv")
+map("x", "<S-k>", ":move '<-2<CR>gv-gv")
+
 ---------------------------------------------------------------
 -- End OF settings
 ---------------------------------------------------------------
