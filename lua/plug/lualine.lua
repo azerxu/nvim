@@ -78,6 +78,9 @@ local theme = {
         b = { fg = colors.gray1, bg = colors.bg },
         c = { fg = colors.gray1, bg = colors.gray2 },
     },
+    tabline = {
+        b = { fg = colors.fg, bg = colors.gray3, gui = "bold" },
+    },
 }
 
 -- 隐藏component

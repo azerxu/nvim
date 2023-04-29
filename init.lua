@@ -7,10 +7,11 @@ vim.g.loaded_netrwPlugin = 1
 -----------------------------------------------------------
 -- core setting
 -----------------------------------------------------------
-require("plugins")       -- 有这一句才能有PackerInstall
-require("core.options")  -- 设置vim.opt参数
-require("core.keymap")   -- 设置快捷键
-require("core.autocmds") -- 设置自动运行命令
+require("plugins")          -- 有这一句才能有PackerInstall
+require("core.options")     -- 设置vim.opt参数
+require("core.keymap")      -- 设置快捷键
+require("core.autocmds")    -- 设置自动运行命令
+require("core.diagnostics") -- 设置诊断信息
 
 -------------------------------------------------------------
 -- Plugins setting
