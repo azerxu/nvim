@@ -12,6 +12,7 @@ local colors = {
     orange2     = '#FF8800',
     green       = "#8ec07c",
     green2      = '#98be65',
+    darkgreen   = "#115511",
     yellow      = '#ECBE7B',
     dark        = "#2a2d2d",
     deepdark    = "#1a1d1d",
@@ -19,13 +20,15 @@ local colors = {
     bg          = '#202328',
     fg          = '#bbc2cf',
     cyan        = '#008080',
-    darkblue    = '#081633',
     violet      = '#a9a1e1',
     blue        = '#51afef',
+    darkblue    = '#081633',
+    light_blue  = "#7FF1FF",
     magenta     = '#c678dd',
     gray1       = '#828997',
     gray2       = '#2c323c',
     gray3       = '#3e4452',
+    brown       = "#715522",
 }
 
 local icons = {
@@ -49,7 +52,7 @@ local icons = {
     Bar = "▊",
     Changed = "+",
     Added = ' ',
-    Modified = '柳 ',
+    Modified = '柳',
     Removed = ' ',
     left_comp = "",
     right_comp = "",
@@ -77,53 +80,45 @@ local theme = {
     },
 }
 
-
-
-local function status_line()
-    local mode = "%-5{%v:lua.string.upper(v:lua.vim.fn.mode())%}"
-    local file_name = "%-.16t"
-    local buf_nr = "[%n]"
-    local modi = " %-m"
-    local file_type = " %y"
-    local right_align = "%="
-    local line_no = "%10([%l/%L%)]"
-    local pct_thru_file = "%5p%%"
-    local all_show = "%9([%l/%L%)]:%p%%"
-    -- local all_show = "%5p%% %y%10(%[l/%L%)]"
-
-    return string.format(
-        "%s%s%s%s%s%s%s%s%s",
-        mode,
-        file_name,
-        buf_nr,
-        modi,
-        file_type,
-        right_align,
-        line_no,
-        pct_thru_file,
-        all_show
-    )
+-- 隐藏component
+local function hide()
+    return vim.fn.winwidth(0) > 80
 end
 
--- vim.opt.statusline = status_line()
--- vim.opt.winbar = status_line()
+-- 空符，用来添加分割控件
+local function empty()
+    return ""
+end
 
+-- 给状态栏两端添加一个分割
 local function bared()
     return icons.Bar
 end
 
+-- 显示Logo
 local function logoed()
     return icons.Logo
 end
 
+-- 合并显示行，列，百分比
 local function stated()
     -- return "%c:%l %5p%%:%8([%l/%L%)]"
-    return "%c:%l %5p%%:%8l/%L"
+    return "%2c:℅ %2p%%%3l/%L☰"
 end
 
+-- 显示macro
+local function register()
+    local reg = vim.fn.reg_recording()
+    if reg == "" then
+        return ""
+    end
+    return "@" .. reg
+end
+
+-- 添加文件修改提示
 local function modified()
     if vim.bo.modified then
-        return icons.Modified
+        return icons.Changed
     elseif vim.bo.modifiable == false or vim.bo.readonly == true then
         return icons.Lock
     end
@@ -138,7 +133,7 @@ local function pasted()
     return ""
 end
 
-
+-- 显示加载的lsp client
 local function lsp_client()
     local clients = vim.lsp.get_active_clients()
     local names = {}
@@ -155,6 +150,7 @@ local function lsp_client()
     return "No Active Lsp"
 end
 
+-- 显示查询结果
 local function search_result()
     if vim.v.hlsearch == 0 then
         return ''
@@ -167,14 +163,13 @@ local function search_result()
     return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
 end
 
-
-
-
+---------------------------------------------------------------------
+-- lualine 设置
+---------------------------------------------------------------------
 require("lualine").setup({
     options = {
         theme = theme,
         icons_enabled = true,
-        -- component_separators = { left = '', right = ''},
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
@@ -258,14 +253,64 @@ require("lualine").setup({
                 -- separator = { right = icons.left_comp },
             },
             {
-                lsp_client,
+                modified,
                 separator = { left = icons.left_comp },
                 color = {
-                    bg = colors.lightdark,
-                    fg = colors.violet,
+                    bg = colors.red2,
+                    fg = colors.white,
                     gui = "bold"
-                },
-                icon = icons.Lsp,
+                }
+            },
+            {
+                "branch",
+                separator = { left = icons.left_comp },
+            },
+            {
+                "diff",
+                separator = { left = icons.left_comp },
+                symbols = { added = icons.Added, modified = icons.Modified, removed = icons.Removed },
+            },
+            {
+                empty,
+                padding = 0,
+                separator = { left = icons.left_comp },
+                draw_empty = true,
+                -- color = { bg = colors.white, fg = colors.white, gui = "bold" },
+                color = { bg = colors.gray2, fg = colors.gray2, gui = "bold" },
+            },
+        },
+        lualine_x = {
+            {
+                "diagnostics",
+                separator = { left = icons.left_comp },
+                source = { "nvim_diagnostic" },
+                sections = { "error" },
+                symbols = { error = icons.Error, warn = icons.Warn, info = icons.Info, hint = icons.Hint },
+                diagnostics_color = { error = { bg = colors.bg, fg = colors.red, gui = "bold" } },
+            },
+            {
+                "diagnostics",
+                separator = { left = icons.left_comp },
+                source = { "nvim_diagnostic" },
+                sections = { "warn" },
+                symbols = { error = icons.Error, warn = icons.Warn, info = icons.Info, hint = icons.Hint },
+                diagnostics_color = { warn = { fg = colors.yellow, bg = colors.bg, gui = "bold" } },
+            },
+            {
+                "diagnostics",
+                separator = { left = icons.left_comp },
+                source = { "nvim_diagnostic" },
+                sections = { "info" },
+                symbols = { error = icons.Error, warn = icons.Warn, info = icons.Info, hint = icons.Hint },
+                diagnostics_color = { info = { fg = colors.blue, bg = colors.bg, gui = "bold" } },
+            },
+            {
+                "diagnostics",
+                separator = { left = icons.left_comp },
+                source = { "nvim_diagnostic" },
+                symbols = { error = icons.Error, warn = icons.Warn, info = icons.Info, hint = icons.Hint },
+                sections = { "hint" },
+                diagnostics_color = { hint = { fg = colors.light_blue, bg = colors.bg, gui = "bold" } },
             },
             {
                 pasted,
@@ -277,91 +322,80 @@ require("lualine").setup({
                 }
             },
             {
-                "branch",
-                separator = { left = icons.left_comp },
-            },
-            {
-                modified,
+                register,
                 separator = { left = icons.left_comp },
                 color = {
-                    bg = colors.cyan,
-                    fg = colors.white,
+                    bg = colors.fg,
+                    fg = colors.gray2,
                     gui = "bold"
                 }
             },
             {
-                "diagnostics",
-                separator = { left = icons.left_comp },
-                source = { "nvim_diagnostic" },
-                sections = { "error" },
-                diagnostics_color = { error = { bg = colors.red, fg = colors.white, gui = "bold" } },
-            },
-            {
-                "diagnostics",
-                separator = { left = icons.left_comp },
-                source = { "nvim_diagnostic" },
-                sections = { "warn" },
-                diagnostics_color = { warn = { fg = colors.yellow, bg = colors.bg, gui = "bold" } },
-            },
-            {
-                "diagnostics",
-                separator = { left = icons.left_comp },
-                source = { "nvim_diagnostic" },
-                sections = { "info" },
-                diagnostics_color = { info = { bg = colors.blue, fg = colors.white, gui = "bold" } },
-            },
-            {
-                "diagnostics",
-                separator = { left = icons.left_comp },
-                source = { "nvim_diagnostic" },
-                sections = { "hint" },
-                diagnostics_color = { hint = { bg = colors.blue, fg = colors.white, gui = "bold" } },
-            },
-
-        },
-        lualine_x = {
-            {
                 search_result,
+                padding = 1,
                 separator = { left = icons.left_comp },
+                color = {
+                    bg = colors.gray3,
+                    fg = colors.orange2,
+                    gui = "bold"
+                },
             },
             {
                 "encoding",
                 separator = { left = icons.left_comp },
-            },
-            {
-                "fileformat",
-                separator = { left = icons.left_comp },
+                cond = hide,
+                color = {
+                    bg = colors.darkgreen,
+                    fg = colors.fg,
+                    gui = "bold"
+                },
             },
             {
                 "filetype",
                 separator = { left = icons.left_comp },
+                color = {
+                    bg = colors.bg,
+                    fg = colors.cyan,
+                    gui = "bold"
+                },
             },
             {
-                "progress",
+                lsp_client,
                 separator = { left = icons.left_comp },
+                color = {
+                    bg = colors.gray3,
+                    fg = colors.violet,
+                    gui = "bold"
+                },
+                icon = icons.Lsp,
             },
             {
-                "location",
+                stated,
                 separator = { left = icons.left_comp },
+                padding = { left = 1, right = 1 },
+                color = {
+                    bg = colors.brown,
+                    fg = colors.white,
+                    gui = "bold"
+                }
             },
+
         },
         lualine_y = {
 
         },
         lualine_z = {
             {
-                stated,
-                padding = { left = 1, right = 1 },
-                -- separator = { left = icons.left_comp },
+                "fileformat",
                 color = {
-                    bg = colors.green,
+                    bg = colors.darkblue,
                     fg = colors.white,
                     gui = "bold"
-                }
+                },
             },
+
             {
                 bared,
-                -- separator = { left = icons.left_comp },
                 separator = "",
                 padding = { left = 0 },
                 color = {
@@ -392,8 +426,11 @@ require("lualine").setup({
         },
     },
     winbar = {
-        -- { status_line() },
     },
     inactive_winbar = {},
     extensions = {},
 })
+
+---------------------------------------------------------------------
+-- End Of File
+---------------------------------------------------------------------
