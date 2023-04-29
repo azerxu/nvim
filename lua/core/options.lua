@@ -36,3 +36,5 @@ vim.opt.incsearch = true
 -- case
 vim.opt.ignorecase = true -- 搜索时忽略大小写
 vim.opt.smartcase = true
+
+-- vim.opt.guifont = "monospace:h17"
