@@ -6,3 +6,6 @@ notify.setup({
 })
 
 vim.notify = notify
+
+require("telescope").load_extension("notify")
+vim.keymap.set("n", "<leader>fn", '<cmd>Telescope notify<CR>', { desc = 'notify' }) -- 搜索notify
