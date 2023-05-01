@@ -265,15 +265,6 @@ require("lualine").setup({
                 }
             },
             {
-                "branch",
-                separator = { left = icons.left_comp },
-            },
-            {
-                "diff",
-                separator = { left = icons.left_comp },
-                symbols = { added = icons.Added, modified = icons.Modified, removed = icons.Removed },
-            },
-            {
                 empty,
                 padding = 0,
                 separator = { left = icons.left_comp },
@@ -283,6 +274,15 @@ require("lualine").setup({
             },
         },
         lualine_x = {
+            {
+                "diff",
+                separator = { left = icons.left_comp },
+                symbols = { added = icons.Added, modified = icons.Modified, removed = icons.Removed },
+            },
+            {
+                "branch",
+                separator = { left = icons.left_comp },
+            },
             {
                 "diagnostics",
                 separator = { left = icons.left_comp },
