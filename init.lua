@@ -35,17 +35,17 @@ require("plug.lightbulb")   -- bulb
 -----------------------------------------------------------
 -- language server setting
 -----------------------------------------------------------
-require("lsp.mason")       -- lsp 包管理
-require("lsp.lspkind")     -- 设置自动补全的图标
-require("lsp.config")      -- 为每个buffer 设置 LspAttach_keyMap
-require("lsp.format")      -- 为每个buffer 设置 LspAttach_formatOnSave
-require("lsp.hints")       -- 为每个buffer 设置 LspAttach_inlayhints
-require("lsp.virtualtext") -- 为每个buffer 设置 LspAttach_virtualText
-require("lsp.dochl")       -- 为每个buffer 设置 LspAttach_documentHighlight
-require("lsp.navic")       -- 为每个buffer 设置 LspAttach_documentSymbol
-require("lsp.navbuddy")    -- navbuddy
-require("lsp.cmp")         -- nvim-cmp 自动补全
-require("lsp.nulls")       -- for autoformat
+require("lsp.mason")   -- lsp 包管理
+require("lsp.lspkind") -- 设置自动补全的图标
+require("lsp.config")  -- 为每个buffer 设置 LspAttach_keyMap
+require("lsp.format")  -- 为每个buffer 设置 LspAttach_formatOnSave
+-- require("lsp.hints")       -- 为每个buffer 设置 LspAttach_inlayhints
+-- require("lsp.virtualtext") -- 为每个buffer 设置 LspAttach_virtualText
+-- require("lsp.dochl")       -- 为每个buffer 设置 LspAttach_documentHighlight
+-- require("lsp.navic")       -- 为每个buffer 设置 LspAttach_documentSymbol
+-- require("lsp.navbuddy")    -- navbuddy
+require("lsp.cmp")   -- nvim-cmp 自动补全
+require("lsp.nulls") -- for autoformat
 
 -----------------------------------------------------------
 -- Language setting

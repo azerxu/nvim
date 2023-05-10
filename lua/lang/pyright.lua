@@ -11,17 +11,25 @@ lspconfig.pyright.setup({
     root_dir = function()
         return vim.fn.getcwd()
     end,
-    -- flags = {
-    -- 	debounce_text_changes = 150,
-    -- },
+    flags = {
+        debounce_text_changes = 150,
+    },
     filetypes = { "python" },
-    -- single_file_support = true,
+    single_file_support = true,
     settings = {
         python = {
             analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
                 useLibraryCodeForTypes = true,
+                typeCheckingMode = "basic",
+                inlayHints = {
+                    enabled = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayParameterNameHints = true,
+                    includeInlayParameterNameHintsWhenPositional = true,
+                    includeInlayVariableTypeHints = true,
+                },
             },
         },
     },

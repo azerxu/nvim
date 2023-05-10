@@ -252,6 +252,15 @@ return require("packer").startup(function(use)
     use {
         "ray-x/lsp_signature.nvim",
     }
+
+    use({
+        "dpayne/CodeGPT.nvim",
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+        }
+    })
+
     ---------------------------------------
     -- python plugins
     ---------------------------------------
