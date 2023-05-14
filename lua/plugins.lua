@@ -261,6 +261,8 @@ return require("packer").startup(function(use)
         }
     })
 
+    use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
+
     ---------------------------------------
     -- python plugins
     ---------------------------------------
@@ -268,7 +270,6 @@ return require("packer").startup(function(use)
     use({ "mhartington/formatter.nvim" })
 
     use({ "mfussenegger/nvim-lint" })
-
 
     ---------------------------------------
     -- END OF PUT YOUR THIRD PLUGIN HERE --
