@@ -31,6 +31,7 @@ require("plug.trouble")     -- 显示 diagnostics
 require("plug.whickey")     -- vim short key helpers
 require("plug.toggleterm")  -- 加强版Term
 require("plug.lightbulb")   -- bulb
+require("plug.tabnine")     -- add tabnine
 
 -----------------------------------------------------------
 -- language server setting
