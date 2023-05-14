@@ -26,6 +26,7 @@ lspconfig.pylsp.setup({
                     enabled = true,
                     exclude = {},
                     -- ignore = {'W391'},
+                    ignore = { 'E203' },
                     indentSize = 4,
                     maxLineLength = 100,
                 },
@@ -46,7 +47,7 @@ lspconfig.pylsp.setup({
                 flake8 = {
                     enabled = true,
                     exclude = {},
-                    ignore = {},
+                    ignore = { 'E203' },
                     indentSize = 4,
                     maxLineLength = 100,
                 },
