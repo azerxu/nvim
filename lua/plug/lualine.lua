@@ -315,6 +315,17 @@ require("lualine").setup({
                 sections = { "hint" },
                 diagnostics_color = { hint = { fg = colors.light_blue, bg = colors.bg, gui = "bold" } },
             },
+
+            {
+                "tabnine",
+                separator = { left = icons.left_comp },
+                color = {
+                    bg = colors.gray2,
+                    fg = colors.light_blue,
+                    gui = "bold"
+                }
+            },
+
             {
                 pasted,
                 separator = { left = icons.left_comp },

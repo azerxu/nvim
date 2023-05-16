@@ -7,6 +7,13 @@ autocmd("BufWritePre", {
     command = ":%s/\\s\\+$//e",
 })
 
+-- -- autoimport python
+-- autocmd("BufWritePre", {
+--     pattern = "*.py",
+--     command = ":!autoimport %",
+-- })
+
+
 -- Don't auto commenting new lines
 autocmd("BufEnter", {
     pattern = "",

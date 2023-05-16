@@ -52,7 +52,7 @@ lspconfig.pylsp.setup({
                     maxLineLength = 100,
                 },
                 pylint = {
-                    enabled = true,
+                    enabled = false,
                     executable = "pylint",
                 },
             },
