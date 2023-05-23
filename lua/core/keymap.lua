@@ -45,6 +45,8 @@ map("t", "<A-q>", "<C-\\><C-N>:q!<CR>")         -- alt+q 关闭Term窗口
 map("n", "<A-S-q>", ":q<CR>")                   -- alt+Q 关闭窗口
 map("n", "<leader>q", ":qa!<CR>")               -- cloase all windows and exit
 map("n", "<leader>s", ":so %<CR>")              -- reload config file
+map("n", "<C-x>c", ":q!<CR>")                   -- learder Ctrl+c 关闭窗口
+map("n", "<C-x><C-s>", ":w<CR>")                -- learder Ctrl+s 保存文件
 
 map("n", "<A-->", ":isplit<CR>")                -- alt+- 水平分割窗口
 map("n", "<A-|>", ":vsplit<CR>")                -- alt+v 垂直分割窗口
